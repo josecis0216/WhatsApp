@@ -1,10 +1,26 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from "expo-status-bar";
+import { StyleSheet, Text, View } from "react-native";
+import Navigator from './src/navigation';
 
 export default function App() {
+  const chat = {
+    id: "1",
+    user: {
+      image:
+        "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/avatars/lukas.jpeg",
+      name: "Lukas",
+    },
+    lastMessage: {
+      text: "Oke",
+      createdAt: "07:30",
+    },
+  };
+
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
+      
+      <Navigator />
+
       <StatusBar style="auto" />
     </View>
   );
@@ -13,8 +29,9 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "whitesmoke",
+    alignItems: "stretch",
+    justifyContent: "center",
+    paddingVertical: 50,
   },
 });
