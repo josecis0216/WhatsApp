@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
-import { ImageBackground, StyleSheet, FlatList } from "react-native";
+import { ImageBackground, StyleSheet, FlatList, KeyboardAvoidingView, Platform } from "react-native";
 import { useRoute, useNavigation } from '@react-navigation/native';
 import Message from "../components/Message";
+import InputBox from '../components/InputBox';
 
 import bg from "../../assets/images/BG.png";
 import messages from "../../assets/data/messages.json";
@@ -27,9 +28,19 @@ const ChatScreen = () => {
           style={{ padding: 10 }}
           inverted
         />
+        <InputBox />
       </ImageBackground>
     </KeyboardAvoidingView>
   );
 };
+
+const styles = StyleSheet.create({
+  bg: {
+    flex: 1,
+  },
+  list: {
+    padding: 10,
+  },
+});
 
 export default ChatScreen;
