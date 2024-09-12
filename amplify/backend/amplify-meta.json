@@ -1,0 +1,87 @@
+{
+  "providers": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-whatsapp-staging-3329f-authRole",
+      "UnauthRoleArn": "arn:aws:iam::025066243214:role/amplify-whatsapp-staging-3329f-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::025066243214:role/amplify-whatsapp-staging-3329f-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-whatsapp-staging-3329f-deployment",
+      "UnauthRoleName": "amplify-whatsapp-staging-3329f-unauthRole",
+      "StackName": "amplify-whatsapp-staging-3329f",
+      "StackId": "arn:aws:cloudformation:us-east-2:025066243214:stack/amplify-whatsapp-staging-3329f/419e90f0-6bdd-11ef-9d85-06b5969a3f0f",
+      "AmplifyAppId": "d2no8nrsjsmqab"
+    }
+  },
+  "auth": {
+    "WhatsApp": {
+      "customAuth": false,
+      "dependsOn": [],
+      "frontendAuthConfig": {
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [
+          "SMS"
+        ],
+        "passwordProtectionSettings": {
+          "passwordPolicyMinLength": 6,
+          "passwordPolicyCharacters": []
+        },
+        "signupAttributes": [],
+        "socialProviders": [],
+        "usernameAttributes": [
+          "EMAIL"
+        ],
+        "verificationMechanisms": [
+          "EMAIL"
+        ]
+      },
+      "providerPlugin": "awscloudformation",
+      "service": "Cognito",
+      "output": {
+        "UserPoolId": "us-east-2_TlLvJH8Vb",
+        "AppClientIDWeb": "6di1qvi1im81mlsbu84ujrmqku",
+        "AppClientID": "39ff3jt26cv8k4gvftlbhvnok7",
+        "IdentityPoolId": "us-east-2:4d21e4ac-f0a6-4c1f-a2b1-8066348b4c88",
+        "UserPoolArn": "arn:aws:cognito-idp:us-east-2:025066243214:userpool/us-east-2_TlLvJH8Vb",
+        "IdentityPoolName": "testAuthIdentityPool__staging",
+        "UserPoolName": "WhatsApp"
+      },
+      "lastPushTimeStamp": "2024-09-09T23:21:02.365Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-whatsapp-staging-3329f-deployment/amplify-cfn-templates/auth/WhatsApp-cloudformation-template.json",
+        "logicalId": "authWhatsApp"
+      }
+    }
+  },
+  "api": {
+    "WhatsApp": {
+      "service": "AppSync",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "output": {
+        "authConfig": {
+          "defaultAuthentication": {
+            "authenticationType": "API_KEY",
+            "apiKeyConfig": {
+              "apiKeyExpirationDays": 30,
+              "description": "api key description"
+            }
+          },
+          "additionalAuthenticationProviders": [
+            {
+              "authenticationType": "AWS_IAM"
+            }
+          ]
+        },
+        "GraphQLAPIIdOutput": "jfcn5jd55fdrfjnbvdtrh4onyu",
+        "GraphQLAPIEndpointOutput": "https://eovxlrtewzdlthuci2ja7kivgi.appsync-api.us-east-2.amazonaws.com/graphql",
+        "GraphQLAPIKeyOutput": "da2-jsue424dmfga5pe3vix5ocsp4i"
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-whatsapp-staging-3329f-deployment/amplify-cfn-templates/api/cloudformation-template.json",
+        "logicalId": "apiWhatsApp"
+      },
+      "lastPushTimeStamp": "2024-09-09T23:21:02.368Z",
+      "lastPushDirHash": "FbPkXuSHhKtwgUgtZxzRjLrWafc="
+    }
+  }
+}

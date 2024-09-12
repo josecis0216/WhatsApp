@@ -1,24 +1,49 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
-import Navigator from './src/navigation';
+import Navigator from "./src/navigation";
+import { Amplify, Auth, API, graphqlOperation } from "aws-amplify";
+import { withAuthenticator } from "aws-amplify-react-native";
+import awsConfig from "./src/aws-exports";
+import { useEffect } from "react";
+import { getUser } from "./src/graphql/queries";
+import { createUser } from "./src/graphql/mutations";
+
+Amplify.configure({ ...awsConfig, Analytics: { disabled: true } });
 
 export default function App() {
-  const chat = {
-    id: "1",
-    user: {
-      image:
-        "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/avatars/lukas.jpeg",
-      name: "Lukas",
-    },
-    lastMessage: {
-      text: "Oke",
-      createdAt: "07:30",
-    },
-  };
+  useEffect(() => {
+    const syncUser = async () => {
+      const authUser = await Auth.currentAuthenticatedUser({
+        bypassCache: true,
+      });
+      console.log(authUser);
+
+      const userData = await API.graphql(
+        graphqlOperation(getUser, { id: authUser.attributes.sub })
+      );
+      console.log(userData);
+
+      if (userData.data.getUser) {
+        console.log('user already exists in DB');
+        return;
+      }
+
+      const newUser = {
+        id: authUser.attributes.sub,
+        name: authUser.attributes.phone_number,
+        status: "Hey, I am using WhatsApp",
+      };
+
+      const newUserResponse = await API.graphql(
+        graphqlOperation(createUser, { input: newUser })
+      );
+    };
+
+    syncUser();
+  }, []);
 
   return (
     <View style={styles.container}>
-      
       <Navigator />
 
       <StatusBar style="auto" />
@@ -32,6 +57,5 @@ const styles = StyleSheet.create({
     backgroundColor: "whitesmoke",
     alignItems: "stretch",
     justifyContent: "center",
-    paddingVertical: 50,
   },
 });
