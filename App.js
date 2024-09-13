@@ -10,7 +10,7 @@ import { createUser } from "./src/graphql/mutations";
 
 Amplify.configure({ ...awsConfig, Analytics: { disabled: true } });
 
-export default function App() {
+function App() {
   useEffect(() => {
     const syncUser = async () => {
       const authUser = await Auth.currentAuthenticatedUser({
@@ -57,3 +57,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
 });
+
+
+export default withAuthenticator(App);

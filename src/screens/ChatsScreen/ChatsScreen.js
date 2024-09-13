@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 
 const ChatsScreen = () => {
   const [chatRoom, setChatRooms] = useState([]);
+  const [mainUser, setMainUser] = useState([]);
 
   useEffect(() => {
     const fetchChatRooms = async () => {
@@ -16,20 +17,20 @@ const ChatsScreen = () => {
         graphqlOperation(listChatRooms, { id: authUser.attributes.sub })
       );
 
+      setMainUser(authUser);
       setChatRooms(response.data.getUser.ChatRooms.items);
-      console.log(chatRoom);
     };
 
     fetchChatRooms();
   }, []);
 
-    return (
-      <FlatList
-        data={chatRoom}
-        renderItem={({ item }) => <ChatListItem chat={item.chatRoom} />}
-        style={{ backgroundColor: 'white' }}
-      />
-    );
-  };
+  return (
+    <FlatList
+      data={chatRoom}
+      renderItem={({ item }) => <ChatListItem chat={item.chatRoom} mainUser={mainUser} />}
+      style={{ backgroundColor: 'white' }}
+    />
+  );
+};
 
 export default ChatsScreen;

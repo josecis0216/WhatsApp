@@ -5,10 +5,13 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 dayjs.extend(relativeTime);
 
-const ChatListItem = ({ chat }) => {
+const ChatListItem = ({ chat, mainUser }) => {
   const navigation = useNavigation();
 
-  const user = chat.users.items[0].user;
+  var user = chat.users.items[0].user;
+  if (mainUser.attributes.sub === user.id) {
+    user = chat.users.items[1].user;
+  }
 
   return (
     <Pressable
