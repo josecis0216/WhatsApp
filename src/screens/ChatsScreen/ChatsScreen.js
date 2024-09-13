@@ -1,6 +1,6 @@
 import { FlatList } from "react-native";
 import ChatListItem from "../../components/ChatListItem";
-import chats from "../../../assets/data/chats.json";
+// import chats from "../../../assets/data/chats.json";
 import { API, graphqlOperation, Auth } from "aws-amplify";
 import { listChatRooms } from "./queries";
 import { useEffect, useState } from "react";
@@ -15,12 +15,18 @@ const ChatsScreen = () => {
       const response = await API.graphql(
         graphqlOperation(listChatRooms, { id: authUser.attributes.sub })
       );
-    }
-  })
+
+      setChatRooms(response.data.getUser.ChatRooms.items);
+      console.log(chatRoom);
+    };
+
+    fetchChatRooms();
+  }, []);
+
     return (
       <FlatList
-        data={chats}
-        renderItem={({ item }) => <ChatListItem chat={item} />}
+        data={chatRoom}
+        renderItem={({ item }) => <ChatListItem chat={item.chatRoom} />}
         style={{ backgroundColor: 'white' }}
       />
     );
