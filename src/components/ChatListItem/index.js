@@ -8,10 +8,13 @@ dayjs.extend(relativeTime);
 const ChatListItem = ({ chat, mainUser }) => {
   const navigation = useNavigation();
 
-  var user = chat.users.items[0].user;
-  if (mainUser.attributes.sub === user.id) {
-    user = chat.users.items[1].user;
-  }
+  // var user = chat.users.items[0].user;
+  // if (mainUser.attributes.sub === user.id) {
+  //   user = chat.users.items[1].user;
+  // }
+
+  const userItem = chat.users.items.find((item) => item.user.id != mainUser.attributes.sub);
+  const user = userItem.user;
 
   return (
     <Pressable

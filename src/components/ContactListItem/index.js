@@ -22,32 +22,32 @@ const ContactListItem = ({ user }) => {
     }
 
     //create new chat rooom
-    // const newChatRoomData = await API.graphql(
-    //   graphqlOperation(createChatRoom, { input: {} })
-    // );
-    // console.log(newChatRoomData);
+    const newChatRoomData = await API.graphql(
+      graphqlOperation(createChatRoom, { input: {} })
+    );
+    console.log(newChatRoomData);
 
-    // if (!newChatRoomData.data?.createChatRoom) {
-    //   console.log("error creating chat room");
-    // }
-    // const newChatRoom = newChatRoomData.data?.createChatRoom;
-    // console.log(newChatRoom);
+    if (!newChatRoomData.data?.createChatRoom) {
+      console.log("error creating chat room");
+    }
+    const newChatRoom = newChatRoomData.data?.createChatRoom;
+    console.log(newChatRoom);
 
-    // //add clicked user to the chatroom
-    // await API.graphql(
-    //   graphqlOperation(createUserChatRoom, { input: { chatRoomId: newChatRoom.id, userId: user.id } })
-    // );
+    //add clicked user to the chatroom
+    await API.graphql(
+      graphqlOperation(createUserChatRoom, { input: { chatRoomId: newChatRoom.id, userId: user.id } })
+    );
 
-    // //add the auth user to the chat room
-    // const authUser = await Auth.currentAuthenticatedUser();
-    // await API.graphql(
-    //   graphqlOperation(createUserChatRoom, {
-    //     input: { chatRoomId: newChatRoom.id, userId: authUser.attributes.sub }
-    //   })
-    // );
+    //add the auth user to the chat room
+    const authUser = await Auth.currentAuthenticatedUser();
+    await API.graphql(
+      graphqlOperation(createUserChatRoom, {
+        input: { chatRoomId: newChatRoom.id, userId: authUser.attributes.sub }
+      })
+    );
 
-    // //navigate to the newly created chat room
-    // navigation.navigate("Chat", { id: newChatRoom.id, name: user.name });
+    //navigate to the newly created chat room
+    navigation.navigate("Chat", { id: newChatRoom.id, name: user.name });
   };
 
   return (
