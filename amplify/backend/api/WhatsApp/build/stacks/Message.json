@@ -129,6 +129,10 @@
             "AttributeType": "S"
           },
           {
+            "AttributeName": "createdAt",
+            "AttributeType": "S"
+          },
+          {
             "AttributeName": "userID",
             "AttributeType": "S"
           }
@@ -149,6 +153,10 @@
               {
                 "AttributeName": "chatroomID",
                 "KeyType": "HASH"
+              },
+              {
+                "AttributeName": "createdAt",
+                "KeyType": "RANGE"
               }
             ],
             "Projection": {
@@ -1224,7 +1232,7 @@
         "TypeName": "Subscription"
       }
     },
-    "QueryMessagesByChatroomIDDataResolverFnQueryMessagesByChatroomIDDataResolverFnAppSyncFunctionF92D99EF": {
+    "QueryListMessagesByChatRoomDataResolverFnQueryListMessagesByChatRoomDataResolverFnAppSyncFunctionEDD5F839": {
       "Type": "AWS::AppSync::FunctionConfiguration",
       "Properties": {
         "ApiId": {
@@ -1237,7 +1245,7 @@
           ]
         },
         "FunctionVersion": "2018-05-29",
-        "Name": "QueryMessagesByChatroomIDDataResolverFn",
+        "Name": "QueryListMessagesByChatRoomDataResolverFn",
         "RequestMappingTemplateS3Location": {
           "Fn::Join": [
             "",
@@ -1250,7 +1258,7 @@
               {
                 "Ref": "referencetotransformerrootstackS3DeploymentRootKeyA71EA735Ref"
               },
-              "/resolvers/Query.messagesByChatroomID.req.vtl"
+              "/resolvers/Query.listMessagesByChatRoom.req.vtl"
             ]
           ]
         },
@@ -1266,7 +1274,7 @@
               {
                 "Ref": "referencetotransformerrootstackS3DeploymentRootKeyA71EA735Ref"
               },
-              "/resolvers/Query.messagesByChatroomID.res.vtl"
+              "/resolvers/Query.listMessagesByChatRoom.res.vtl"
             ]
           ]
         }
@@ -1275,13 +1283,13 @@
         "MessageDataSource"
       ]
     },
-    "QuerymessagesByChatroomIDResolver": {
+    "QuerylistMessagesByChatRoomResolver": {
       "Type": "AWS::AppSync::Resolver",
       "Properties": {
         "ApiId": {
           "Ref": "referencetotransformerrootstackGraphQLAPI20497F53ApiId"
         },
-        "FieldName": "messagesByChatroomID",
+        "FieldName": "listMessagesByChatRoom",
         "Kind": "PIPELINE",
         "PipelineConfig": {
           "Functions": [
@@ -1293,7 +1301,7 @@
             },
             {
               "Fn::GetAtt": [
-                "QueryMessagesByChatroomIDDataResolverFnQueryMessagesByChatroomIDDataResolverFnAppSyncFunctionF92D99EF",
+                "QueryListMessagesByChatRoomDataResolverFnQueryListMessagesByChatRoomDataResolverFnAppSyncFunctionEDD5F839",
                 "FunctionId"
               ]
             }
@@ -1303,7 +1311,7 @@
           "Fn::Join": [
             "",
             [
-              "$util.qr($ctx.stash.put(\"typeName\", \"Query\"))\n$util.qr($ctx.stash.put(\"fieldName\", \"messagesByChatroomID\"))\n$util.qr($ctx.stash.put(\"conditions\", []))\n$util.qr($ctx.stash.put(\"metadata\", {}))\n$util.qr($ctx.stash.metadata.put(\"dataSourceType\", \"AMAZON_DYNAMODB\"))\n$util.qr($ctx.stash.metadata.put(\"apiId\", \"",
+              "$util.qr($ctx.stash.put(\"typeName\", \"Query\"))\n$util.qr($ctx.stash.put(\"fieldName\", \"listMessagesByChatRoom\"))\n$util.qr($ctx.stash.put(\"conditions\", []))\n$util.qr($ctx.stash.put(\"metadata\", {}))\n$util.qr($ctx.stash.metadata.put(\"dataSourceType\", \"AMAZON_DYNAMODB\"))\n$util.qr($ctx.stash.metadata.put(\"apiId\", \"",
               {
                 "Ref": "referencetotransformerrootstackGraphQLAPI20497F53ApiId"
               },

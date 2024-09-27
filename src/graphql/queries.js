@@ -5,13 +5,15 @@ export const getChatRoom = /* GraphQL */ `
   query GetChatRoom($id: ID!) {
     getChatRoom(id: $id) {
       id
+      name
+      image
       Messages {
         items {
           id
+          createdAt
           text
           chatroomID
           userID
-          createdAt
           updatedAt
           __typename
         }
@@ -32,10 +34,10 @@ export const getChatRoom = /* GraphQL */ `
       }
       LastMessage {
         id
+        createdAt
         text
         chatroomID
         userID
-        createdAt
         updatedAt
         __typename
       }
@@ -55,6 +57,8 @@ export const listChatRooms = /* GraphQL */ `
     listChatRooms(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
+        name
+        image
         Messages {
           nextToken
           __typename
@@ -65,10 +69,10 @@ export const listChatRooms = /* GraphQL */ `
         }
         LastMessage {
           id
+          createdAt
           text
           chatroomID
           userID
-          createdAt
           updatedAt
           __typename
         }
@@ -86,10 +90,10 @@ export const getMessage = /* GraphQL */ `
   query GetMessage($id: ID!) {
     getMessage(id: $id) {
       id
+      createdAt
       text
       chatroomID
       userID
-      createdAt
       updatedAt
       __typename
     }
@@ -104,10 +108,10 @@ export const listMessages = /* GraphQL */ `
     listMessages(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
+        createdAt
         text
         chatroomID
         userID
-        createdAt
         updatedAt
         __typename
       }
@@ -116,16 +120,18 @@ export const listMessages = /* GraphQL */ `
     }
   }
 `;
-export const messagesByChatroomID = /* GraphQL */ `
-  query MessagesByChatroomID(
+export const listMessagesByChatRoom = /* GraphQL */ `
+  query ListMessagesByChatRoom(
     $chatroomID: ID!
+    $createdAt: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelMessageFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    messagesByChatroomID(
+    listMessagesByChatRoom(
       chatroomID: $chatroomID
+      createdAt: $createdAt
       sortDirection: $sortDirection
       filter: $filter
       limit: $limit
@@ -133,10 +139,10 @@ export const messagesByChatroomID = /* GraphQL */ `
     ) {
       items {
         id
+        createdAt
         text
         chatroomID
         userID
-        createdAt
         updatedAt
         __typename
       }
@@ -162,10 +168,10 @@ export const messagesByUserID = /* GraphQL */ `
     ) {
       items {
         id
+        createdAt
         text
         chatroomID
         userID
-        createdAt
         updatedAt
         __typename
       }
@@ -184,10 +190,10 @@ export const getUser = /* GraphQL */ `
       Messages {
         items {
           id
+          createdAt
           text
           chatroomID
           userID
-          createdAt
           updatedAt
           __typename
         }
@@ -249,6 +255,8 @@ export const getUserChatRoom = /* GraphQL */ `
       userId
       chatRoom {
         id
+        name
+        image
         Messages {
           nextToken
           __typename
@@ -259,10 +267,10 @@ export const getUserChatRoom = /* GraphQL */ `
         }
         LastMessage {
           id
+          createdAt
           text
           chatroomID
           userID
-          createdAt
           updatedAt
           __typename
         }
@@ -307,6 +315,8 @@ export const listUserChatRooms = /* GraphQL */ `
         userId
         chatRoom {
           id
+          name
+          image
           createdAt
           updatedAt
           chatRoomLastMessageId
@@ -351,6 +361,8 @@ export const userChatRoomsByChatRoomId = /* GraphQL */ `
         userId
         chatRoom {
           id
+          name
+          image
           createdAt
           updatedAt
           chatRoomLastMessageId
@@ -395,6 +407,8 @@ export const userChatRoomsByUserId = /* GraphQL */ `
         userId
         chatRoom {
           id
+          name
+          image
           createdAt
           updatedAt
           chatRoomLastMessageId

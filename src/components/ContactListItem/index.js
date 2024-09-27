@@ -16,8 +16,9 @@ const ContactListItem = ({ user }) => {
     console.warn("pressed");
     //check if we already have a chatroom with user
     const existingChatRoom = await getCommonChatRoomWithUser(user.id);
+    //console.log(existingChatRoom.chatRoom);
     if (existingChatRoom) {
-      navigation.navigate("Chat", { id: existingChatRoom.id, name: user.name });
+      navigation.navigate("Chat", { id: existingChatRoom.chatRoom.id, name: user.name });
       return;
     }
 

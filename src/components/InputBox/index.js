@@ -3,11 +3,11 @@ import { AntDesign } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { API, graphqlOperation, Auth } from "aws-amplify";
-import { createMessage } from "../../graphql/mutations";
+import { createMessage, updateChatRoom } from "../../graphql/mutations";
 
 import { useState } from "react";
 
-const InputBox = ({ chatroomID }) => {
+const InputBox = ({ chatroom }) => {
   const [text, setText] = useState("");
 
   const onSend = async () => {
@@ -16,14 +16,28 @@ const InputBox = ({ chatroomID }) => {
     const authUser = await Auth.currentAuthenticatedUser();
 
     const newMessage = {
-      chatroomID,
+      chatroomID: chatroom.id,
       text,
       userID: authUser.attributes.sub,
     };
 
-    await API.graphql(graphqlOperation(createMessage, { input: newMessage }));
+    const newMessageData = await API.graphql(
+      graphqlOperation(createMessage, { input: newMessage })
+    );
+
+    await API.graphql(
+      graphqlOperation(updateChatRoom, {
+        input: {
+          _version: chatroom._version,
+          chatRoomLastMessageId: newMessageData.data.createMessage.id,
+          id: chatroom.id,
+        },
+      })
+    );
 
     setText("");
+
+    //set the message as LastMessage of the chat room
   };
 
   return (

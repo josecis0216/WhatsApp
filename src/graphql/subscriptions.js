@@ -5,13 +5,15 @@ export const onCreateChatRoom = /* GraphQL */ `
   subscription OnCreateChatRoom($filter: ModelSubscriptionChatRoomFilterInput) {
     onCreateChatRoom(filter: $filter) {
       id
+      name
+      image
       Messages {
         items {
           id
+          createdAt
           text
           chatroomID
           userID
-          createdAt
           updatedAt
           __typename
         }
@@ -32,10 +34,10 @@ export const onCreateChatRoom = /* GraphQL */ `
       }
       LastMessage {
         id
+        createdAt
         text
         chatroomID
         userID
-        createdAt
         updatedAt
         __typename
       }
@@ -50,13 +52,15 @@ export const onUpdateChatRoom = /* GraphQL */ `
   subscription OnUpdateChatRoom($filter: ModelSubscriptionChatRoomFilterInput) {
     onUpdateChatRoom(filter: $filter) {
       id
+      name
+      image
       Messages {
         items {
           id
+          createdAt
           text
           chatroomID
           userID
-          createdAt
           updatedAt
           __typename
         }
@@ -77,10 +81,10 @@ export const onUpdateChatRoom = /* GraphQL */ `
       }
       LastMessage {
         id
+        createdAt
         text
         chatroomID
         userID
-        createdAt
         updatedAt
         __typename
       }
@@ -95,13 +99,15 @@ export const onDeleteChatRoom = /* GraphQL */ `
   subscription OnDeleteChatRoom($filter: ModelSubscriptionChatRoomFilterInput) {
     onDeleteChatRoom(filter: $filter) {
       id
+      name
+      image
       Messages {
         items {
           id
+          createdAt
           text
           chatroomID
           userID
-          createdAt
           updatedAt
           __typename
         }
@@ -122,10 +128,10 @@ export const onDeleteChatRoom = /* GraphQL */ `
       }
       LastMessage {
         id
+        createdAt
         text
         chatroomID
         userID
-        createdAt
         updatedAt
         __typename
       }
@@ -140,10 +146,10 @@ export const onCreateMessage = /* GraphQL */ `
   subscription OnCreateMessage($filter: ModelSubscriptionMessageFilterInput) {
     onCreateMessage(filter: $filter) {
       id
+      createdAt
       text
       chatroomID
       userID
-      createdAt
       updatedAt
       __typename
     }
@@ -153,10 +159,10 @@ export const onUpdateMessage = /* GraphQL */ `
   subscription OnUpdateMessage($filter: ModelSubscriptionMessageFilterInput) {
     onUpdateMessage(filter: $filter) {
       id
+      createdAt
       text
       chatroomID
       userID
-      createdAt
       updatedAt
       __typename
     }
@@ -166,10 +172,10 @@ export const onDeleteMessage = /* GraphQL */ `
   subscription OnDeleteMessage($filter: ModelSubscriptionMessageFilterInput) {
     onDeleteMessage(filter: $filter) {
       id
+      createdAt
       text
       chatroomID
       userID
-      createdAt
       updatedAt
       __typename
     }
@@ -185,10 +191,10 @@ export const onCreateUser = /* GraphQL */ `
       Messages {
         items {
           id
+          createdAt
           text
           chatroomID
           userID
-          createdAt
           updatedAt
           __typename
         }
@@ -223,10 +229,10 @@ export const onUpdateUser = /* GraphQL */ `
       Messages {
         items {
           id
+          createdAt
           text
           chatroomID
           userID
-          createdAt
           updatedAt
           __typename
         }
@@ -261,10 +267,10 @@ export const onDeleteUser = /* GraphQL */ `
       Messages {
         items {
           id
+          createdAt
           text
           chatroomID
           userID
-          createdAt
           updatedAt
           __typename
         }
@@ -299,6 +305,8 @@ export const onCreateUserChatRoom = /* GraphQL */ `
       userId
       chatRoom {
         id
+        name
+        image
         Messages {
           nextToken
           __typename
@@ -309,10 +317,10 @@ export const onCreateUserChatRoom = /* GraphQL */ `
         }
         LastMessage {
           id
+          createdAt
           text
           chatroomID
           userID
-          createdAt
           updatedAt
           __typename
         }
@@ -354,6 +362,8 @@ export const onUpdateUserChatRoom = /* GraphQL */ `
       userId
       chatRoom {
         id
+        name
+        image
         Messages {
           nextToken
           __typename
@@ -364,10 +374,10 @@ export const onUpdateUserChatRoom = /* GraphQL */ `
         }
         LastMessage {
           id
+          createdAt
           text
           chatroomID
           userID
-          createdAt
           updatedAt
           __typename
         }
@@ -409,6 +419,8 @@ export const onDeleteUserChatRoom = /* GraphQL */ `
       userId
       chatRoom {
         id
+        name
+        image
         Messages {
           nextToken
           __typename
@@ -419,10 +431,10 @@ export const onDeleteUserChatRoom = /* GraphQL */ `
         }
         LastMessage {
           id
+          createdAt
           text
           chatroomID
           userID
-          createdAt
           updatedAt
           __typename
         }

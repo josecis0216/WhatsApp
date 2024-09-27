@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Auth } from "aws-amplify";
 import dayjs from "dayjs";
@@ -8,13 +8,15 @@ dayjs.extend(relativeTime);
 const Message = ({ message }) => {
   const [isMe, setIsMe] = useState(true);
 
-  const isMyMessage = async () => {
-    const authUser = await Auth.currentAuthenticatedUser();
-
-    setIsMe(message.userID === authUser.attributes.sub);
-  };
-
-  isMyMessage();
+  useEffect(() => {
+    const isMyMessage = async () => {
+      const authUser = await Auth.currentAuthenticatedUser();
+  
+      setIsMe(message.userID === authUser.attributes.sub);
+    };
+  
+    isMyMessage();
+  }, []);
 
   return (
     <View

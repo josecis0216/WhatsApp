@@ -1,6 +1,8 @@
 type ChatRoom @aws_iam @aws_api_key {
   id: ID!
-  Messages(filter: ModelMessageFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelMessageConnection
+  name: String
+  image: String
+  Messages(createdAt: ModelStringKeyConditionInput, filter: ModelMessageFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelMessageConnection
   users(filter: ModelUserChatRoomFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelUserChatRoomConnection
   LastMessage: Message
   createdAt: AWSDateTime!
@@ -10,10 +12,10 @@ type ChatRoom @aws_iam @aws_api_key {
 
 type Message @aws_iam @aws_api_key {
   id: ID!
+  createdAt: AWSDateTime!
   text: String!
   chatroomID: ID!
   userID: ID!
-  createdAt: AWSDateTime!
   updatedAt: AWSDateTime!
 }
 
@@ -195,6 +197,8 @@ type ModelChatRoomConnection @aws_api_key @aws_iam {
 
 input ModelChatRoomFilterInput {
   id: ModelIDInput
+  name: ModelStringInput
+  image: ModelStringInput
   createdAt: ModelStringInput
   updatedAt: ModelStringInput
   and: [ModelChatRoomFilterInput]
@@ -208,7 +212,7 @@ type Query {
   listChatRooms(filter: ModelChatRoomFilterInput, limit: Int, nextToken: String): ModelChatRoomConnection @aws_api_key @aws_iam
   getMessage(id: ID!): Message @aws_api_key @aws_iam
   listMessages(filter: ModelMessageFilterInput, limit: Int, nextToken: String): ModelMessageConnection @aws_api_key @aws_iam
-  messagesByChatroomID(chatroomID: ID!, sortDirection: ModelSortDirection, filter: ModelMessageFilterInput, limit: Int, nextToken: String): ModelMessageConnection @aws_api_key @aws_iam
+  listMessagesByChatRoom(chatroomID: ID!, createdAt: ModelStringKeyConditionInput, sortDirection: ModelSortDirection, filter: ModelMessageFilterInput, limit: Int, nextToken: String): ModelMessageConnection @aws_api_key @aws_iam
   messagesByUserID(userID: ID!, sortDirection: ModelSortDirection, filter: ModelMessageFilterInput, limit: Int, nextToken: String): ModelMessageConnection @aws_api_key @aws_iam
   getUser(id: ID!): User @aws_api_key @aws_iam
   listUsers(filter: ModelUserFilterInput, limit: Int, nextToken: String): ModelUserConnection @aws_api_key @aws_iam
@@ -219,6 +223,8 @@ type Query {
 }
 
 input ModelChatRoomConditionInput {
+  name: ModelStringInput
+  image: ModelStringInput
   and: [ModelChatRoomConditionInput]
   or: [ModelChatRoomConditionInput]
   not: ModelChatRoomConditionInput
@@ -229,11 +235,15 @@ input ModelChatRoomConditionInput {
 
 input CreateChatRoomInput {
   id: ID
+  name: String
+  image: String
   chatRoomLastMessageId: ID
 }
 
 input UpdateChatRoomInput {
   id: ID!
+  name: String
+  image: String
   chatRoomLastMessageId: ID
 }
 
@@ -258,6 +268,8 @@ type Mutation {
 
 input ModelSubscriptionChatRoomFilterInput {
   id: ModelSubscriptionIDInput
+  name: ModelSubscriptionStringInput
+  image: ModelSubscriptionStringInput
   createdAt: ModelSubscriptionStringInput
   updatedAt: ModelSubscriptionStringInput
   and: [ModelSubscriptionChatRoomFilterInput]
@@ -287,10 +299,10 @@ type ModelMessageConnection @aws_iam @aws_api_key {
 
 input ModelMessageFilterInput {
   id: ModelIDInput
+  createdAt: ModelStringInput
   text: ModelStringInput
   chatroomID: ModelIDInput
   userID: ModelIDInput
-  createdAt: ModelStringInput
   updatedAt: ModelStringInput
   and: [ModelMessageFilterInput]
   or: [ModelMessageFilterInput]
@@ -298,18 +310,19 @@ input ModelMessageFilterInput {
 }
 
 input ModelMessageConditionInput {
+  createdAt: ModelStringInput
   text: ModelStringInput
   chatroomID: ModelIDInput
   userID: ModelIDInput
   and: [ModelMessageConditionInput]
   or: [ModelMessageConditionInput]
   not: ModelMessageConditionInput
-  createdAt: ModelStringInput
   updatedAt: ModelStringInput
 }
 
 input CreateMessageInput {
   id: ID
+  createdAt: AWSDateTime
   text: String!
   chatroomID: ID!
   userID: ID!
@@ -317,6 +330,7 @@ input CreateMessageInput {
 
 input UpdateMessageInput {
   id: ID!
+  createdAt: AWSDateTime
   text: String
   chatroomID: ID
   userID: ID
@@ -328,10 +342,10 @@ input DeleteMessageInput {
 
 input ModelSubscriptionMessageFilterInput {
   id: ModelSubscriptionIDInput
+  createdAt: ModelSubscriptionStringInput
   text: ModelSubscriptionStringInput
   chatroomID: ModelSubscriptionIDInput
   userID: ModelSubscriptionIDInput
-  createdAt: ModelSubscriptionStringInput
   updatedAt: ModelSubscriptionStringInput
   and: [ModelSubscriptionMessageFilterInput]
   or: [ModelSubscriptionMessageFilterInput]
@@ -444,4 +458,14 @@ input ModelSubscriptionUserChatRoomFilterInput {
   updatedAt: ModelSubscriptionStringInput
   and: [ModelSubscriptionUserChatRoomFilterInput]
   or: [ModelSubscriptionUserChatRoomFilterInput]
+}
+
+input ModelStringKeyConditionInput {
+  eq: String
+  le: String
+  lt: String
+  ge: String
+  gt: String
+  between: [String]
+  beginsWith: String
 }

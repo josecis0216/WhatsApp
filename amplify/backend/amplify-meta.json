@@ -45,7 +45,7 @@
         "IdentityPoolName": "testAuthIdentityPool__staging",
         "UserPoolName": "WhatsApp"
       },
-      "lastPushTimeStamp": "2024-09-09T23:21:02.365Z",
+      "lastPushTimeStamp": "2024-09-27T13:59:30.481Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-whatsapp-staging-3329f-deployment/amplify-cfn-templates/auth/WhatsApp-cloudformation-template.json",
         "logicalId": "authWhatsApp"
@@ -80,8 +80,8 @@
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-whatsapp-staging-3329f-deployment/amplify-cfn-templates/api/cloudformation-template.json",
         "logicalId": "apiWhatsApp"
       },
-      "lastPushTimeStamp": "2024-09-09T23:21:02.368Z",
-      "lastPushDirHash": "FbPkXuSHhKtwgUgtZxzRjLrWafc="
+      "lastPushTimeStamp": "2024-09-27T14:09:57.160Z",
+      "lastPushDirHash": "1hxwpenC92gWW6op3OtNc9RcEEI="
     }
   }
 }
