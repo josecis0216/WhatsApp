@@ -12,7 +12,7 @@ import { ActivityIndicator } from 'react-native-web';
 
 const ChatScreen = () => {
   const [chatRoom, setChatRoom] = useState(null);
-  const [messages, setMessages] = useState([]); 
+  const [messages, setMessages] = useState([]);
   const route = useRoute();
   const navigation = useNavigation();
 
@@ -25,16 +25,16 @@ const ChatScreen = () => {
     ).then(
       (result) => setChatRoom(result.data?.getChatRoom)
     );
-  }, [chatRoomID]);
+  }, [chatroomID]);
 
   //fetch messages
   useEffect(() => {
     API.graphql(
-      graphqlOperation(listMessagesByChatRoom, { chatroomID, sortDirection: "DESC"  })
+      graphqlOperation(listMessagesByChatRoom, { chatroomID, sortDirection: "DESC" })
     ).then(
       (result) => setMessages(result.data?.listMessagesByChatRoom?.items)
     );
-  }, [chatRoomID])
+  }, [chatroomID])
 
   useEffect(() => {
     navigation.setOptions({ title: route.params.name });
